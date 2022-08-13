@@ -16,3 +16,62 @@
   --color-primary: #be282d;
   --color-secondary: #ffffff;
 }
+
+@font-face {
+  font-family: 'mbaling-icons';
+  src: url('~assets/mbaling-icons.woff?2bigvc') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="mbi-"], [class*=" mbi-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'mbaling-icons' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mbi-account:before {
+  content: "\e900";
+}
+.mbi-account-fill:before {
+  content: "\e901";
+}
+.mbi-home:before {
+  content: "\e902";
+}
+.mbi-home-fill:before {
+  content: "\e903";
+}
+.mbi-inbox:before {
+  content: "\e904";
+}
+.mbi-inbox-fill:before {
+  content: "\e905";
+}
+.mbi-post:before {
+  content: "\e906";
+}
+.mbi-post-fill:before {
+  content: "\e907";
+}
+.mbi-search:before {
+  content: "\e908";
+}
+.mbi-search-fill:before {
+  content: "\e909";
+}
+.mbi-settings:before {
+  content: "\e90a";
+}
+.mbi-settings-fill:before {
+  content: "\e90b";
+}
