@@ -23,7 +23,7 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-webpack/boot-files
     boot: [
-      
+      'components',
       'axios',
     ],
 
@@ -42,13 +42,14 @@ module.exports = configure(function (ctx) {
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
+      'bootstrap-icons',
       'roboto-font', // optional, you are not bound to it
       'material-icons', // optional, you are not bound to it
     ],
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-build
     build: {
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
 
       // transpile: false,
       // publicPath: '/',
@@ -83,7 +84,10 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-framework
     framework: {
-      config: {},
+      config: {
+        notify: { /* look at QuasarConfOptions from the API card */ },
+        loading: { /* look at QuasarConfOptions from the API card */ }
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -96,12 +100,20 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Loading',
+        'Notify',
+        'Dialog',
+        'BottomSheet'
+      ]
     },
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations: [
+      'slideInRight',
+      'slideOutRight'
+    ],
 
     // https://v2.quasar.dev/quasar-cli-webpack/developing-ssr/configuring-ssr
     ssr: {
@@ -136,7 +148,7 @@ module.exports = configure(function (ctx) {
       manifest: {
         name: `mBALING`,
         short_name: `mBALING`,
-        description: ``,
+        description: `mBALING is a student housing management system for on-campus housing firms in MSU-Marawi City campus.`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
