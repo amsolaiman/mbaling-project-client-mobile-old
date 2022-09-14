@@ -1,26 +1,28 @@
 {
-  "name": "mbaling-project-client-mobile",
+  "name": "mbaling-project",
   "version": "0.0.1",
-  "description": "mBALING is a student housing management system for on-campus housing firms in MSU-Marawi City campus.",
+  "description": "mBALING is a student housing management system for on-campus housing firms in MSU-Marawi City campus",
   "productName": "mBALING",
-  "author": "Abdul Moiz Solaiman <abdulmoiz.solaiman@gmail.com>",
+  "author": "Abdul Moiz Solaiman <solaiman.am85@s.msumain.edu.ph>",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "icons": "icongenie generate -i Appicon.png"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "vuex": "^4.0.1",
     "@quasar/extras": "^1.0.0",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "quasar": "^2.6.0",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0",
-    "vue-class-component": "^8.0.0-rc.1"
+    "quasar": "^2.0.0",
+    "vue-class-component": "^8.0.0-rc.1",
+    "vue-property-decorator": "^9.1.2",
+    "vuex": "^4.0.1"
   },
   "devDependencies": {
-    "@types/node": "^12.20.21",
-    "@quasar/app-webpack": "^3.0.0"
+    "@quasar/app": "^3.0.0",
+    "@types/node": "^10.17.15",
+    "electron": "^19.0.4",
+    "electron-packager": "^15.5.1",
+    "workbox-webpack-plugin": "^6.5.3"
   },
   "browserslist": [
     "last 10 Chrome versions",

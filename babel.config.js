@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 
 module.exports = api => {
   return {
@@ -12,3 +12,4 @@ module.exports = api => {
     ]
   }
 }
+

@@ -1,11 +1,9 @@
-# mBALING (mbaling-project-client-mobile)
+# mBALING (mbaling-project)
 
-mBALING is a student housing management system for on-campus housing firms in MSU-Marawi City campus.
+mBALING is a student housing management system for on-campus housing firms in MSU-Marawi City campus
 
 ## Install the dependencies
 ```bash
-yarn
-# or
 npm install
 ```
 
@@ -21,4 +19,4 @@ quasar build
 ```
 
 ### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js).
+See [Configuring quasar.conf.js](https://v2.quasar.dev/quasar-cli/quasar-conf-js).

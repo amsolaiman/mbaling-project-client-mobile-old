@@ -1,36 +1,17 @@
 // app global css in SCSS form
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
-  font-family: "Montserrat", sans-serif;
-}
-
-:root {
-  --color-primary: #be282d;
-  --color-secondary: #ffffff;
-  --color-grey-light: #9e9e9e;
-  --color-grey-dark: #616161;
-}
-
+/* MAINLAYOUT BASE ICONS */
 @font-face {
-  font-family: "mbaling-icons";
-  src: url("~assets/mbaling-icons.woff?2bigvc") format("woff");
+  font-family: 'mbaling-icons';
+  src: url('fonts/mbaling-icons.woff?2bigvc') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="mbi-"],
-[class*=" mbi-"] {
+[class^="mbi-"], [class*=" mbi-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "mbaling-icons" !important;
+  font-family: 'mbaling-icons' !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -79,7 +60,33 @@
   content: "\e90b";
 }
 
-.q-page {
-  background: var(--color-secondary);
-  padding: 0 0.8rem;
+/* DEFAULT SYSTEM FONTS */
+@font-face {
+  font-family: Metropolis-Regular;
+  src: url(./fonts/metropolis-regular.woff2);
+}
+@font-face {
+  font-family: Metropolis-Bold;
+  src: url(./fonts/metropolis-bold.woff2);
+}
+@font-face {
+  font-family: Metropolis-Semi-Bold;
+  src: url(./fonts/metropolis-semibold.woff2);
+}
+@font-face {
+  font-family: Metropolis-Light;
+  src: url(./fonts/metropolis-light.woff2);
+}
+
+.defaultfont {
+  font-family: "Metropolis-Regular";
+}
+.defaultfont-bold {
+  font-family: "Metropolis-Bold";
+}
+.defaultfont-semibold {
+  font-family: "Metropolis-Semi-Bold";
+}
+.defaultfont-light {
+  font-family: "Metropolis-Light";
 }

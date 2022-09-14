@@ -1,30 +1,58 @@
 <template>
-  <q-header class="sAccount__header">
-    <q-item-label lines="1"> @username </q-item-label>
-  </q-header>
-  <q-page>
-    <div class="profile__container">
-      <div align="center" class="profile__details">
-        <q-avatar size="10rem">
-          <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" />
-        </q-avatar>
-        <div class="profile__details-name">Firstname Lastname</div>
-        <p class="profile__details-course">
-          BS Information Technology (Database Systems)<br />
-          Department of Information Sciences<br />
-          College of Information and Computing Sciences
-        </p>
-      </div>
-      <q-separator inset color="primary" size="0.1rem" class="q-my-sm" />
+  <q-header class="defaultfont bg-secondary">
+    <div align="center" class="q-pt-lg" style="height: 4rem">
+      <q-item-label
+        lines="1"
+        class="defaultfont-semibold text-primary"
+        style="font-size: medium"
+      >
+        @{{ currentUser.username }}
+      </q-item-label>
     </div>
 
-    <div class="notif__container">
-      <div class="notif__housing row">
+    <div align="center" class="q-px-md q-pb-xs text-black">
+      <q-avatar size="10rem" class="bg-primary">
+        <q-img
+          v-if="currentUser.prfphoto"
+          :src="`http://localhost:3000/prfmedia/${currentUser.prfphoto}`"
+          class="avatar"
+        />
+        <q-img
+          v-if="!currentUser.prfphoto"
+          class="avatar q-pt-none q-mt-none"
+          src="https://i.postimg.cc/FzcjmLj3/LOGO.jpg"
+        />
+      </q-avatar>
+      <div
+        class="q-mt-md q-px-lg defaultfont-bold text-uppercase"
+        style="font-size: large"
+      >
+        {{ currentUser.fName }} {{ currentUser.lName }}
+      </div>
+      <div class="q-px-md" style="font-size: small">
+        <p style="line-height: 1rem">
+          {{ currentUser.degree }} <br />
+          {{ currentUser.department }} <br />
+          {{ currentUser.college }}
+        </p>
+      </div>
+    </div>
+    <q-separator inset color="primary" size="0.1rem" class="q-my-sm" />
+  </q-header>
+
+  <q-page class="defaultfont">
+    <div class="q-px-lg q-py-md">
+      <div align="left" class="row items-center">
         <div align="left" class="col-10">
-          <div class="notif__title">Set your campus housing</div>
-          <div class="notif__housing-text">
-            Please set your campus housing address to complete your user record.
-            <br />
+          <div
+            class="defaultfont-semibold text-grey-8"
+            style="font-size: medium"
+          >
+            Set your campus housing
+          </div>
+          <div class="defaultfont text-grey" style="font-size: smaller">
+            Please set your campus housing address to complete your user
+            record. <br />
             Go to your Landlord's profile > click Apply.
           </div>
         </div>
@@ -32,20 +60,43 @@
           <q-icon name="bi-question-circle" size="lg" color="grey" />
         </div>
       </div>
-
-      <div class="notif__title q-mt-lg">Application status:</div>
+    </div>
+    <!--  -->
+    <div class="q-px-lg q-py-md">
+      <div class="defaultfont-semibold text-grey-8" style="font-size: medium">
+        Application
+      </div>
       <div class="q-mt-md">
-        <q-list>
-          <q-card class="apply__card row">
-            <div class="col-2">
-              <q-avatar class="apply__card-avatar">
-                <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" />
+        <q-list v-for="pending in applications" :key="pending">
+          <q-card
+            v-if="
+              pending.status == 'pending' &&
+              currentUser.id == pending.student?.id
+            "
+            class="q-pa-md row items-center"
+          >
+            <div class="q-ml-sm col-2">
+              <q-avatar size="xl" class="bg-primary">
+                <q-img
+                  v-if="pending.landlord?.prfphoto"
+                  class=""
+                  :src="`http://localhost:3000/prfmedia/${pending.landlord?.prfphoto}`"
+                />
+                <q-img
+                  v-if="!pending.landlord?.prfphoto"
+                  class=""
+                  src="https://i.postimg.cc/FzcjmLj3/LOGO.jpg"
+                />
               </q-avatar>
             </div>
             <div class="col">
-              <q-item-section>
-                <q-item-label lines="1" class="apply__content-name">
-                  Housing Name
+              <q-item-section class="defaultfont">
+                <q-item-label
+                  lines="1"
+                  class="defaultfont-semibold"
+                  style="font-size: medium"
+                >
+                  {{ pending.landlord?.housing?.name }}
                 </q-item-label>
                 <q-item-label lines="1" style="font-size: smaller">
                   Your request is pending...
@@ -60,94 +111,200 @@
                 no-caps
                 color="primary"
                 style="height: 2.5rem"
+                @click="disapproveApplicant(pending.id)"
+              />
+            </div>
+            <!-- <div class="q-mt-sm q-ml-xs">
+                  <q-btn
+                    class="q-mx-xs"
+                    color="primary"
+                    ripple="false"
+                    unelevated
+                    label="Cancel"
+                    rounded
+                    dense
+                    style="width: 15rem"
+
+                  />
+                </div> -->
+          </q-card>
+
+          <!--  -->
+
+          <q-card
+            v-if="
+              pending.status == 'accepted' &&
+              currentUser.id == pending.student?.id
+            "
+            class="q-pa-md row items-center"
+          >
+            <div class="q-ml-sm col-2">
+              <q-avatar size="xl" class="bg-primary">
+                <q-img
+                  v-if="pending.landlord?.prfphoto"
+                  class=""
+                  :src="`http://localhost:3000/prfmedia/${pending.landlord?.prfphoto}`"
+                />
+                <q-img
+                  v-if="!pending.landlord?.prfphoto"
+                  class=""
+                  src="https://i.postimg.cc/FzcjmLj3/LOGO.jpg"
+                />
+              </q-avatar>
+            </div>
+            <div class="col">
+              <q-item-section class="defaultfont">
+                <q-item-label
+                  lines="1"
+                  class="defaultfont-semibold"
+                  style="font-size: medium"
+                >
+                  {{ pending.landlord?.housing?.name }}
+                </q-item-label>
+                <q-item-label lines="1" style="font-size: smaller">
+                  Your request is accepted.
+                </q-item-label>
+              </q-item-section>
+            </div>
+            <div align="right" class="col-4">
+              <q-btn
+                label="Approved"
+                unelevated
+                outline
+                rounded
+                no-caps
+                color="primary"
+                style="height: 2.5rem"
+                @click="disapproveApplicant(pending.id)"
               />
             </div>
           </q-card>
         </q-list>
       </div>
     </div>
+    <!--  -->
   </q-page>
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+import { ApplicationDto } from "src/services/rest-api";
+import { AUser } from "src/store/auth/state";
+import { Options, Vue } from "vue-class-component";
+import { mapActions, mapGetters, mapState } from "vuex";
 
-export default class StudentAccount extends Vue {}
+@Options({
+  methods: {
+    ...mapActions("auth", ["authUser"]),
+    ...mapActions("account", ["editAccount", "getAllUser"]),
+    ...mapActions("application", [
+      "getAllApplication",
+      "updateApplication",
+      "deleteApplication",
+    ]),
+  },
+  computed: {
+    ...mapState("auth", ["currentUser"]),
+    ...mapState("application", ["applications"]),
+    ...mapGetters("application", ["getPendingAccount"]),
+  },
+})
+export default class StudentAccount extends Vue {
+  deleteApplication!: (payload: any) => Promise<void>;
+  updateApplication!: (payload: any) => Promise<void>;
+  getAllApplication!: () => Promise<void>;
+  applications!: ApplicationDto[];
+  getPendingAccount!: ApplicationDto[];
+  authUser!: () => Promise<void>;
+  currentUser!: AUser;
+
+  data: any = [];
+
+  columns = [
+    {
+      name: "name",
+      label: "Name",
+      align: "left",
+      field: (row: ApplicationDto) =>
+        row.student?.fName + " " + row.student?.lName,
+    },
+    {
+      name: "name",
+      label: "Housing",
+      align: "left",
+      field: (row: ApplicationDto) => row.landlord?.housing?.name,
+    },
+    {
+      name: "status",
+      required: true,
+      label: "Applicant Status",
+      align: "left",
+      field: "status",
+    },
+  ];
+  async mounted() {
+    await this.authUser();
+    await this.getAllApplication();
+    console.log(this.data);
+  }
+  async ApproveApplicant(id: any) {
+    console.log("Approve here");
+    await this.updateApplication({
+      id,
+      status: "accepted",
+    });
+  }
+
+  async disapproveApplicant(id: any) {
+    this.$q
+      .dialog({
+        title: "Confirm Edit",
+        message: "Are you sure you want to cancel your request?",
+        cancel: true,
+        persistent: true,
+        class: "defaultfont",
+      })
+      .onOk(async () => {
+        await this.deleteApplication(id);
+        this.$q.notify({
+          type: "positive",
+          caption: "You can now Apply again ",
+          message: "Successfully Deleted",
+          position: "top",
+          color: "secondary",
+          textColor: "primary",
+          classes: "defaultfont",
+        });
+        console.log("delete Here");
+      });
+  }
+
+  colorManipulation(status: string) {
+    console.log("status", status);
+    if (status == "pending") {
+      return "orange";
+    } else if (status == "banned") {
+      return "red";
+    } else {
+      return "green";
+    }
+  }
+  labelManipulation(status: string) {
+    if (status == "pending") {
+      return "Pending";
+    } else if (status == "banned") {
+      return "Banned";
+    } else {
+      return "Available";
+    }
+  }
+}
 </script>
 
 <style>
-.sAccount__header {
-  background: var(--color-secondary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 4rem;
-  color: var(--color-primary);
-  font-size: medium;
-  font-weight: 600;
-}
-
-.profile__container {
-  background: var(--color-secondary);
-}
-
-.profile__details {
-  color: #000000;
-  padding: 0 1rem;
-}
-
-.profile__details .q-avatar {
-  background: var(--color-primary);
-}
-
-.profile__details-name {
-  margin-top: 1rem;
-  text-transform: uppercase;
-  font-size: large;
-  font-weight: bold;
-}
-
-.profile__details-course {
-  margin-top: 0.4rem;
-  line-height: 1rem;
-  font-size: small;
-  font-weight: 500;
-}
-
-.notif__container {
-  padding: 1rem 1rem 8rem 1rem;
-}
-
-.notif__housing {
-  align-items: center;
-}
-
-.notif__title {
-  font-weight: 700;
-  font-size: medium;
-  color: var(--color-grey-dark);
-}
-
-.notif__housing-text {
-  color: var(--color-grey-light);
-  font-size: smaller;
-  font-weight: 500;
-}
-
-.apply__card {
-  align-items: center;
+.avatar {
   width: 100%;
-  padding: 1rem;
-}
-
-.apply__card-avatar {
-  width: 2.8rem;
-  height: 2.8rem;
-  background: var(--color-primary);
-}
-
-.apply__content-name {
-  font-weight: 600;
-  font-size: medium;
+  height: 100%;
+  border-radius: 50% !important;
+  border: 2px solid rgb(190, 40, 45) !important;
 }
 </style>

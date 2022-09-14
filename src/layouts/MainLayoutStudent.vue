@@ -4,12 +4,18 @@
       <router-view />
     </q-page-container>
 
-    <nav>
-      <q-btn-group flat spread class="btn__group">
+    <q-footer reveal class="q-pb-lg bg-transparent flex flex-center">
+      <q-btn-group
+        rounded
+        flat
+        spread
+        class="bg-secondary text-primary box-shadow"
+        style="height: 3.5rem"
+      >
         <q-btn
           :ripple="false"
           size="lg"
-          style="width: 4rem"
+          style="width: 5rem"
           @click="$router.push('/student/home')"
         >
           <i
@@ -24,7 +30,7 @@
         <q-btn
           :ripple="false"
           size="lg"
-          style="width: 4rem"
+          style="width: 5rem"
           @click="$router.push('/student/search')"
         >
           <i
@@ -36,10 +42,25 @@
           />
         </q-btn>
 
+        <!-- <q-btn
+          :ripple="false"
+          size="lg"
+          style="width: 5rem"
+          @click="$router.push('/student/inbox')"
+        >
+          <i
+            :class="
+              $route.fullPath.includes('/student/inbox')
+                ? 'mbi-inbox-fill'
+                : 'mbi-inbox'
+            "
+          />
+        </q-btn> -->
+
         <q-btn
           :ripple="false"
           size="lg"
-          style="width: 4rem"
+          style="width: 5rem"
           @click="$router.push('/student/account')"
         >
           <i
@@ -54,7 +75,7 @@
         <q-btn
           :ripple="false"
           size="lg"
-          style="width: 4rem"
+          style="width: 5rem"
           @click="$router.push('/student/settings')"
         >
           <i
@@ -66,7 +87,7 @@
           />
         </q-btn>
       </q-btn-group>
-    </nav>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -76,24 +97,8 @@ import { Vue } from "vue-class-component";
 export default class MainLayoutStudent extends Vue {}
 </script>
 
-<style scoped>
-nav {
-  background: var(--color-secondary);
-  width: max-content;
-  display: block;
-  z-index: 2;
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 2rem;
-  border-radius: 3rem;
+<style>
+.box-shadow {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5) !important;
-}
-
-.btn__group {
-  background: transparent;
-  height: 3.7rem;
-  color: var(--color-primary);
-  padding: 0 0.8rem;
 }
 </style>

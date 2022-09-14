@@ -1,10 +1,21 @@
 <template>
-  <q-header class="sHome__header">
-    <div>FOR YOU</div>
+  <q-header
+    class="q-px-md header bg-secondary row items-center"
+    style="height: 3rem"
+  >
+    <div class="defaultfont-bold text-black" style="font-size: large">
+      FOR YOU
+    </div>
   </q-header>
 
-  <q-page>
+  <q-page class="bg-secondary">
+    <!-- POST COMPONENT -->
     <post-feed />
+
+    <!-- NO POSTS WARNING -->
+    <div class="flex flex-center" style="height: 8rem">
+      <q-spinner color="primary" size="3rem" />
+    </div>
   </q-page>
 </template>
 
@@ -13,18 +24,3 @@ import { Vue } from "vue-class-component";
 
 export default class StudentHome extends Vue {}
 </script>
-
-<style scoped>
-.sHome__header {
-  background: var(--color-secondary);
-  align-items: center;
-  height: 3rem;
-  padding: 0.6rem 1.8rem;
-}
-
-.sHome__header div {
-  color: #000000;
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-</style>
